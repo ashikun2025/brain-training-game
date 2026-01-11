@@ -28,7 +28,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const backStartBtn = document.getElementById("back-start-btn");
     if (backStartBtn) {
         backStartBtn.addEventListener("click", () => {
-            location.href = "./start.html";
+            location.href = "./index.html";
         });
     }
 

@@ -52,7 +52,7 @@ https://ashikun2025.github.io/brain-training-game/
 ---
 
 ## ディレクトリ構成
-├── start.html
+├── index.html
 ├── howto-play.html
 ├── game.html
 ├── result.html

@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const gotoStartBtn = document.getElementById("back-start-btn");
     if (gotoStartBtn) {
         gotoStartBtn.addEventListener("click", () => {
-            location.href = "./start.html";
+            location.href = "./index.html";
         });
     }
 
