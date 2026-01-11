@@ -1,0 +1,43 @@
+.main {
+    position: relative;
+    height: 850px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: antiquewhite;
+}
+
+.howto-play-title {
+    font-size: 70px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.howto-text {
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+#back-start-btn {
+  background-color: red;
+  color: white;
+
+  border: none;      /* 内枠線を削除 */
+  outline: none;     /* フォーカス枠も削除 */
+
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+
+  padding: 12px 20px;
+  cursor: pointer;
+}
+
+.buttons {
+  position: absolute;
+  right: 30px;
+  bottom: 10px;
+}

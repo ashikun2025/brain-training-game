@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>脳トレ計算ゲーム</title>
+
+        <!-- Anime.jsを読み込む -->
+        <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+
+        <!-- Lodashを読み込む -->
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+        <link rel="stylesheet" href="./css/game.css">
+
+        <!-- ここにHTML本体 -->
+        <script src="./js/game.js" defer></script>
+    </head>
+
+    <body>
+        <!-- ゲーム画面エリア -->
+        <div id="game-screen" class="game-screen">
+            <div class="game-header">
+                <div id="timer" class="timer">制限時間: 060</div>
+                <div id="score" class="score">score: 0</div> 
+            </div>
+
+            <div id="countdown-overlay">3</div>
+        </div>
+    </body>    
+</html>

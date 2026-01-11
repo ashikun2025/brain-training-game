@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <mata charset="utf-8">
+        <title>遊び方の説明</title>
+        <link rel="stylesheet" href="./css/howto-play.css">
+        <script src="./js/howto-play.js" defer></script>
+    </head>
+
+    <body>
+        <div id="howto-play-screen" class="main">
+            <h2 class="howto-play-title">ゲーム概要</h2>
+            <p class="howto-text">
+                このゲームは、画面上から落ちてくる計算カードの答えを素早く入力し、制限時間内にできるだけ多く正解して高得点を目指す計算トレーニングゲームです。<br>
+                足し算・引き算・掛け算・割り算といった基本的な計算を使いながら、計算力・集中力・判断力を同時に鍛えることが出来ます。
+            </p>
+
+            <h2 class="howto-play-title">遊び方の説明</h2>
+                <ol class="howto-text">
+                    <li>スタート画面で「ゲーム開始」ボタンを押すと、ゲームが始まります。</li>
+                    <li>画面上から計算式が書かれたカードが次々と落ちてきます。</li>
+                    <li>落ちてくるカードの計算結果を、数字キーボードで入力し、Enterキーを押してください。</li>
+                    <li>連続正解で高スコアを目指そう！</li>
+                </ol>
+        
+
+            <div class="buttons">
+                <button id="back-start-btn">スタートに戻る</button>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById("back-start-btn").addEventListener("click", () => {
+                location.href = "start.html";
+            });
+        </script>
+    </body>
+    
+
+</html>
