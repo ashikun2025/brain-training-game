@@ -14,7 +14,7 @@
 ---
 
 ## 公開URL
-https://speci.github.to/brain-training-game/
+https://ashikun2025.github.io/brain-training-game/
 
 ---
 
