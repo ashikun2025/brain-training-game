@@ -32,4 +32,12 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    //難易度選択画面に戻る
+    const selectBtn = document.getElementById("select-btn");
+    if (selectBtn) {
+        selectBtn.addEventListener("click", () => {
+            location.href = "./select-difficult.html";
+        });
+    }
+
 });

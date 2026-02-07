@@ -68,6 +68,17 @@
     outline: none;
 }
 
+/* 難易度選択に戻るボタン */
+#select-btn {
+    position: absolute;
+    left: 300px;
+    bottom: 20px;
+    background-color: blue;
+
+    border: none;
+    outline: none;
+}
+
 /* リトライボタン */
 #retry-btn {
     position: absolute;

@@ -1,4 +1,6 @@
 const isTest = typeof window === "undefined";
+console.log(typeof anime);
+
 
 /* ゲーム状態 */
 let score = 0;
@@ -141,35 +143,76 @@ function resetGame(){
 }
 
 
-/* カードデータ生成 */
+/* カードデータ生成 + 難易度対応 */
+
+const difficulty = localStorage.getItem("difficulty");
+console.log("現在の難易度:", difficulty);
+
 function createCalcCardData(){
-  const operactors = ["+", "-", "×", "÷"];
-  const operator = operactors[Math.floor(Math.random() * operactors.length)];
+  switch (difficulty) {
+    case "easy":
+      return createEasyProblem();
+    case "normal":
+      return createNormalProblem();
+    case "hard":
+      return createHardProblem();
+    default:
+      console.error("難易度が設定されていません:", difficulty);
+      return null;
+  }
+}
+
+/* 初級レベル */
+function createEasyProblem(){
+  const operators = ["+", "-"];
+  const operator = operators[Math.floor(Math.random() * operators.length)];
+
+  let a = _.random(10,99);
+  let b = _.random(10,99);
+  let answer;
+
+  if (operator === "+") {
+    answer = a + b;
+  } else {
+    if (b > a) [a, b] = [b, a]; //マイナス防止のため、値を交換
+    answer = a - b;
+  }
+
+  return {
+    text: `${a} ${operator} ${b}`,
+    answer
+  };
+}
+
+/* 中級レベル */
+function createNormalProblem() {
+  const operators = ["+", "-", "×", "÷"];
+  const operator = operators[Math.floor(Math.random() * operators.length)];
 
   let a, b, answer;
 
-  switch(operator) {
+  switch (operator) {
     case "+":
-      a = _.random(1, 100);
-      b = _.random(1, 100);
+      a = _.random(10,99);
+      b = _.random(10,99);
       answer = a + b;
       break;
-    
+
     case "-":
-      a = _.random(1, 100);
-      b = _.random(1, a);
+      a = _.random(10,99);
+      b = _.random(10,a);
       answer = a - b;
       break;
 
     case "×":
-      a = _.random(1, 50);
-      b = _.random(1, 30);
+      a = _.random(10,80);
+      b = _.random(10,80);
       answer = a * b;
       break;
 
     case "÷":
-      b = _.random(1, 20);
-      answer = _.random(1, 20)
+      b = _.random(1,99);
+      answer = _.random(1,99);
       a = b * answer;
       break;
   }
@@ -180,6 +223,88 @@ function createCalcCardData(){
   };
 }
 
+/* 上級レベル */
+function createHardProblem() {
+  let a, b, c, op1, op2, temp, result;
+  const operators = ["+", "-", "×", "÷"];
+
+  while(true) { //無限にループ
+    a = _.random(1, 10);
+    b = _.random(1, 10);
+    c = _.random(1, 10);
+
+    op1 = _.sample(operators);
+    op2 = _.sample(operators);
+
+    temp = calc(a, op1, b);
+    if (temp === null) continue;
+
+    result = calcWithPriority(a, op1, b, op2, c);
+    if (result === null) continue;
+
+    //数値が大きすぎる or マイナスは除外
+    if (result < 0 || result > 10000) continue;
+
+    break;
+  }
+
+  //空欄位置をランダム
+  const blankType = _.sample(["a", "b", "c", "result"]);
+
+  let answer;
+  switch (blankType) {
+    case "a": answer = a; break;
+    case "b": answer = b; break;
+    case "c": answer = c; break;
+    case "result": answer = result; break;
+  }
+
+  return {
+    type: "fill",
+    blankType,
+    a,
+    b,
+    c,
+    op1,
+    op2,
+    result,
+    answer
+  };
+}
+
+/* 優先順位付きの計算関数 */
+function calcWithPriority(a, op1, b, op2, c) {
+  // op2 の方が優先なら b op2 c を先に
+  if (isHighPriority(op2) && !isHighPriority(op1)) {
+    const right = calc(b, op2, c);
+    if (right === null) return null;
+    return calc(a, op1, right);
+  }
+
+  // それ以外は左から
+  const left = calc(a, op1, b);
+  if (left === null) return null;
+  return calc(left, op2, c);
+}
+
+function isHighPriority(op) {
+  return op === "×" || op === "÷";
+}
+
+
+/* 計算用ヘルパー関数 */
+function calc(a, op, b) {
+  switch (op) {
+    case "+": return a + b;
+    case "-": return a - b;
+    case "×": return a * b;
+    case "÷":
+      if (b === 0) return null;
+      if (a % b !== 0) return null;
+      return a / b;
+  }
+}
+
 
 /* カードDOM生成 */
 function createCardElement(cardData){
@@ -187,19 +312,25 @@ function createCardElement(cardData){
   const card = document.createElement("div");
   card.className = "calc-card";
 
-  card.innerHTML = `
+  if (cardData.type === "fill") {
+    card.classList.add("hard");
+    card.innerHTML = buildHardFormula(cardData);
+    card.dataset.answer = cardData.answer;
+  } else {
+    card.innerHTML = `
     <div class="calc-text">${cardData.text} ＝</div>
     <input
       type="number"
       class="card-input"
       autocomplete="off"
     >
-  `;
+    `;
 
-  card.dataset.answer = cardData.answer;
+    card.dataset.answer = cardData.answer;
+  }
 
   // 画面上部のランダム位置
-  const cardWidth = 180;
+  const cardWidth = card.offsetWidth || (difficulty === "hard" ? 450 : 180);
   const maxX = gameScreen.clientWidth -cardWidth;
   const ramdomX = Math.random() * maxX;
   card.style.left = `${ramdomX}px`;
@@ -218,6 +349,22 @@ function createCardElement(cardData){
   dropCard(card);
 }
 
+/* 上級用の空欄を含む式HTML生成 */
+function buildHardFormula(data) {
+  const input = `<input type="number" class="card-input" />`;
+
+  const A = data.blankType === "a" ? input : data.a;
+  const B = data.blankType === "b" ? input : data.b;
+  const C = data.blankType === "c" ? input : data.c;
+  const R = data.blankType === "result" ? input : data.result;
+
+  return `
+    <div class ="calc-text">
+      ${A} ${data.op1} ${B} ${data.op2} ${C} = ${R}
+    </div>
+  `;
+}
+
 
 /* カード落下アニメーション */
 function dropCard(card) {
@@ -226,7 +373,7 @@ function dropCard(card) {
   anime({
     targets: card,
     translateY: gameScreen.clientHeight + 200,
-    duration: 12000, //落下速度
+    duration: 16000, //落下速度
     easing: "linear",
     complete: () => { 
       removeCard(card);  //画面外に落ちたカードを削除
@@ -243,6 +390,7 @@ function startCardGeneration() {
 
   cardTimer = setInterval(() => {
       const data = createCalcCardData();
+      if(!data) return;
       createCardElement(data);
   }, 3000);
 }

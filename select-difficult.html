@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>脳トレ計算ゲーム</title>
+        <link rel="stylesheet" href="./css/select-difficult.css">
+        <script src="./js/select-difficult.js" defer></script>
+    </head>
+
+    <body>
+        <div id="select-difficult-screen" class="select-difficult-screen">
+            <h1 class="title">難易度を選択してください</h1>
+
+            <div class="level-block">
+                <button class="easy-btn" data-level="easy">初級レベル</button>
+                <p class="description">
+                    内容: 2桁の足し算や引き算であり、計算に自身がない方でも遊べます
+                </p>
+            </div>
+
+            <div class="level-block">
+                <button class="normal-btn" data-level="normal">中級レベル</button>
+                <p class="description">
+                    内容: 初級に準じて、掛け算や割り算を追加
+                </p>
+            </div>
+
+            <div class="level-block">
+                <button class="hard-btn" data-level="hard">上級レベル</button>
+                <p class="description">
+                    内容: 空欄補充問題
+                </p>
+            </div>
+
+            <div class="buttons">
+                <button class="back-btn">戻る</button>
+                <button class="gamestart-btn" disabled>ゲーム開始</button>
+            </div>
+        </div>
+    </body>
+</html>

@@ -14,7 +14,7 @@
 ---
 
 ## 公開URL
-https://ashikun2025.github.io/brain-training-game/
+https://ashikun2025.github.io/brain-training-game_ver2/
 
 ---
 
@@ -33,6 +33,7 @@ https://ashikun2025.github.io/brain-training-game/
 - 制限時間タイマー
 - コンボボーナス機能
 - スコア・結果画面表示
+- 難易度選択(初級・中級・上級)を追加
 
 ---
 
@@ -48,22 +49,26 @@ https://ashikun2025.github.io/brain-training-game/
 - コンボが続くほどスコアが増加する設計
 - 正解・不正解をアニメーションで視覚的に表現
 - ストレステストを実施し、カクつきがないことを確認
+- 上級用の計算式を解くために、優先順位を考慮
 
 ---
 
 ## ディレクトリ構成
 ├── index.html
 ├── howto-play.html
+├── select-difficult.html
 ├── game.html
 ├── result.html
 ├── css/
 │ └── start.css
 │ └── howto-play.css
+│ └── select-difficult.css
 │ └── game.css
 │ └── result.css
 └── js/
   └── start.js
   └── howto-play.js
+  └── select-difficult.js
   └── game.js
   └── result.js
 

@@ -1,9 +1,9 @@
 window.addEventListener("DOMContentLoaded", () => {
     //ゲーム開始ボタン
-    const gameStartBtn = document.getElementById("gamestart-btn");
-    if (gameStartBtn) {
-        gameStartBtn.addEventListener("click", () => {
-            location.href = "./game.html";
+    const selectBtn = document.getElementById("select-btn");
+    if (selectBtn) {
+        selectBtn.addEventListener("click", () => {
+            location.href = "./select-difficult.html";
         });
     }
 
